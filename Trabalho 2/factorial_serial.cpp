@@ -21,7 +21,7 @@ long double factorial(int* num){
 
 int main(){
 
-    for(int i = 0; i < 5000; i++){
+    for(int i = 0; i < 10000; i++){
         for(int i = 1; i <= NUM_FACT; i++){
             //std::cout << "Fatorial de " << i << " = " << factorial(&i) << "\n";
             factorial(&i);
