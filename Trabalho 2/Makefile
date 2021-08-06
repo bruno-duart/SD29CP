@@ -1,5 +1,5 @@
 all: 
-	factorial_paralelo factorial_serial
+	factorial_paralel factorial_serial
 
 paralelo: 
 	g++ factorial_paralel.cpp -o factorial_paralel -fopenmp
@@ -11,7 +11,7 @@ clean:
 	rm -rf factorial_paralel factorial_serial
 
 run_p: .
-	./factorial_paralel
+	time ./factorial_paralel
 
 run_s: 
-	./factorial_serial
+	time ./factorial_serial

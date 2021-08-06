@@ -21,7 +21,7 @@ long double factorial(int* num){ // Cálculo de fatorial
 }
 
 int main(){
-    omp_set_num_threads(16);
+    omp_set_num_threads(4);
     for(int i = 0; i < 10000; i++){
         #pragma omp parallel for
         for(int i = 1; i <= NUM_FACT; i++){
