@@ -45,7 +45,7 @@ int main(void){
 	// Passo 2: Realizar a comunicação com os clientes - fica em loop
 	while(1){
 		printf("Aguardando requisição ...\n");
-		
+		cont = 0;
 		// processando pacote recebido
 		if ( (tam_recebido = recvfrom(socket_desc, buf, TAMBUFFER, 0, (struct sockaddr *)&addr_remoto, &slen)) > 0){
 			buf[tam_recebido]='\0';
@@ -91,7 +91,7 @@ int main(void){
 				if ((sendto(socket_desc, buf, strlen(buf), 0, (struct sockaddr *)&addr_remoto, slen)) <0){
 					perror("Erro ao enviar resposta!!!");
 				}
-				do{
+				do{ // Validação do número do cliente
 					if ( (tam_recebido = recvfrom(socket_desc, buf, TAMBUFFER, 0, (struct sockaddr *)&addr_remoto, &slen) > 0) ){
 						num_jogador = atoi(buf);
 						printf("O Cliente digitou: %d\n",num_jogador);
@@ -110,7 +110,7 @@ int main(void){
 				if ((sendto(socket_desc, buf, strlen(buf), 0, (struct sockaddr *)&addr_remoto, slen)) <0){
 					perror("Erro ao enviar resposta!!!");
 				}
-				num_servidor = rand() % 11;
+				num_servidor = rand() % 11; // Sorteio do número do servidor
 				sprintf(buf, "Meu número é: %d", num_servidor); // Resposta válida
 				if ((sendto(socket_desc, buf, strlen(buf), 0, (struct sockaddr *)&addr_remoto, slen)) <0){
 					perror("Erro ao enviar resposta!!!");
@@ -135,6 +135,7 @@ int main(void){
 						num_vitorias_cliente++;
 					}
 				}
+				// Resultado da rodada
 				sprintf(buf, "Soma: %d\nO resultado do par ou ímpar é: %s\nO vencedor foi: %s\nPlacar atual: Serv %d x %d Cli\n", soma, resultado, vencedor, num_vitorias_servidor, num_vitorias_cliente);
 				if ((sendto(socket_desc, buf, strlen(buf), 0, (struct sockaddr *)&addr_remoto, slen)) <0){
 					perror("Erro ao enviar resposta!!!");
